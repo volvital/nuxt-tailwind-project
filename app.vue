@@ -55,10 +55,10 @@
                   </svg>
                 </button>
               </div>
-              <div class="">
-                <div class="flex mt-16 mb-3 ml-20 text-3xl/10 leading-6">
-                  <div class="mr-28">Kor Blockchain Badge</div>
-                  <div class="mr-12">#{{ currentIdImage }}</div>
+              <div class=" text-center">
+                <div class="flex justify-between mt-16 mb-3 ml-20 mr-20 text-3xl/10 leading-6">
+                  <div>Kor Blockchain Badge</div>
+                  <div>#{{ currentIdImage }}</div>
                 </div>           
               
                 <div class="text-sm underline decoration-white mb-5 ml-20">
