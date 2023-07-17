@@ -41,10 +41,11 @@
               class="min-w-full transform overflow-hidden shadow-xl transition-all text-white"
             	>
               <div class="text-end">
-								<button 
-									class="max-h-14 max-w-14 mr-12 mt-12 rounded-2xl px-2 py-2 bg-gray-50/[.15] hover:bg-gray-500"
-									>
-										<NuxtLink to="/">
+								<NuxtLink to="/">
+									<button 
+										class="max-h-14 max-w-14 mr-12 mt-12 rounded-2xl px-2 py-2 bg-gray-50/[.15] hover:bg-gray-500"
+										@click="closeModal"
+										>										
 										<span class="sr-only">Cancel</span>
 										<svg 
 											xmlns="http://www.w3.org/2000/svg" 
@@ -52,9 +53,9 @@
 											stroke-width="1.5" stroke="currentColor" 
 											class="w-3 h-3 my-2 mx-2">
 											<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-										</svg>
-									</NuxtLink>
-								</button>
+										</svg>									
+									</button>
+								</NuxtLink>
               </div>
               <div class="flex justify-center font-['Inter'] not-italic">
                 <DialogTitle class="w-full max-w-[672px]">
@@ -95,39 +96,39 @@
                   </div>
                   <div class="flex items-center">
                     <div class="flex items-center text-center h-full w-full">
-                      <button 
-                        :disabled="currentDisabledPrevious"
-                        @click="previousImage(currentIdImage)" 
-                        class="inline-flex items-center rounded-2xl px-2 py-2 bg-gray-50/[.15] hover:bg-gray-500 mr-4"                  
-                      >
-                        <span class="sr-only">Previous</span>
-                        <svg class="w-3 h-3 my-2 mx-2" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                          <path
-                            fill-rule="evenodd"
-                            d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z"
-                            clip-rule="evenodd"
-                            />
-                        </svg>
-                      </button>
+											<NuxtLink :to="`/${previousImage}`" :disabled="currentDisabledPrevious">	
+												<button 													 
+													class="inline-flex items-center rounded-2xl px-2 py-2 bg-gray-50/[.15] hover:bg-gray-500 mr-4"                  
+												>
+													<span class="sr-only">Previous</span>
+													<svg class="w-3 h-3 my-2 mx-2" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+														<path
+															fill-rule="evenodd"
+															d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z"
+															clip-rule="evenodd"
+															/>
+													</svg>
+												</button>
+											</NuxtLink>
                       <div class="overflow-hidden rounded-2xl">                
                         <img
                           :src="dogsStore.image.imageURL"
                           :alt="dogsStore.image.infoUrl" 
                           class="object-cover object-center" />                
                       </div>
-                      <button
-                        :disabled="currentDisabledNext"  
-                        @click="nextImage(currentIdImage)" 
-                        class="inline-flex items-center rounded-2xl px-2 py-2 bg-gray-50/[.15] hover:bg-gray-500 ml-4"
-                      >
-                        <span class="sr-only">Next</span>
-                        <svg class="w-3 h-3 my-2 mx-2" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                          <path
-                            fill-rule="evenodd" 
-                            d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" 
-                            clip-rule="evenodd" />
-                        </svg>
-                      </button>
+											<NuxtLink :to="`/${nextImage}`" :disabled="currentDisabledNext">
+												<button													                          
+													class="inline-flex items-center rounded-2xl px-2 py-2 bg-gray-50/[.15] hover:bg-gray-500 ml-4"
+												>												
+													<span class="sr-only">Next</span>
+													<svg class="w-3 h-3 my-2 mx-2" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+														<path
+															fill-rule="evenodd" 
+															d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" 
+															clip-rule="evenodd" />
+													</svg>												
+												</button>
+											</NuxtLink>
                     </div>
                   </div>
                   <div class="mt-4 mb-12 text-center">
@@ -169,6 +170,10 @@ export default defineComponent({
     DialogPanel,
     DialogTitle,
   },
+	mounted() {
+		const id = this.$route.params.id;
+		this.setImage(+id)
+	},
   data() {
     return {
       isOpen: ref(true)
@@ -194,23 +199,34 @@ export default defineComponent({
     },
     currentDisabledNext() {
       return this.currentIdImage === this.images[this.images.length - 1].id
-    }
+    },
+		previousImage() {
+			const id = this.$route.params.id;
+      let index = this.images.findIndex(item => item.id === (+id));
+			if(index === 0) {
+				return +id
+			}
+      const previousId = this.images[index - 1].id;
+      return previousId
+    },  
+		nextImage() {
+			const id = this.$route.params.id;
+      let index = this.images.findIndex(item => item.id === (+id));
+			if(index === this.images.length - 1) {
+				return +id
+			}
+      const nextId = this.images[index + 1].id;
+      return nextId
+    },
   },
   methods: {  
+		closeModal() {
+			this.isOpen = ref(false);
+		},
     setImage(id) {
 			this.dogsStore.setId(id);
       this.dogsStore.setImage(id);
-    },
-    previousImage(id) {
-      let index = this.images.findIndex(item => item.id === id);
-      const previousId = this.images[index - 1].id;
-      this.setImage(previousId);
-    },
-    nextImage(id) {
-      let index = this.images.findIndex(item => item.id === id);
-      const nextId = this.images[index + 1].id;
-      this.setImage(nextId);
-    },
+    },  
     copyToClipboard() {        
       copyText(this.currentPageURL, undefined, (error, event) => {
           if (error) {

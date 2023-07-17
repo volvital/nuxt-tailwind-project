@@ -11,7 +11,7 @@
       </button>
       <div class="font-['Inter'] not-italic text-[32px]/[40px] inline-block">Kadena Bears</div>
       <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 xl:gap-x-8">
-        <NuxtLink v-for="image in images" @click="dogsStore.openModal(image.id)" :to="`/${image.id}`" :key="image.id" class="group">
+        <NuxtLink v-for="image in images" :to="`/${image.id}`" :key="image.id" class="group">
           <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
             <img :src="image.imageURL" :alt="image.infoUrl" class="h-full w-full object-cover object-center group-hover:opacity-75" />
           </div>

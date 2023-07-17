@@ -1,4 +1,4 @@
-import { mapStores, mapState, mapActions, defineStore } from 'pinia'
+import { defineStore } from 'pinia'
 
 const imageURL = "https://d2cnuwplk0vy10.cloudfront.net/nft-image/angel-doggos@kadena/"
 const infoUrl = "https://mintit.studio/collections/the-angel-doggos/tokens/"
@@ -44,10 +44,6 @@ export const useDogImageStore = defineStore('dogs', {
 		}
 	},
 	actions: {
-		openModal(id) {
-      this.setId(id);
-      this.setImage(id);
-    },
 		setId(id) {
 			this.id = id;
 		},
