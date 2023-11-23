@@ -13,9 +13,9 @@
       <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 xl:gap-x-8">
         <NuxtLink v-for="image in images" :to="`/${image.id}`" :key="image.id" class="group">
           <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
-            <img :src="image.imageURL" :alt="image.title" class="h-full w-full object-cover object-center group-hover:opacity-75" />
+            <img :src="image.image" :alt="image.title" class="h-full w-full object-cover object-center group-hover:opacity-75" />
           </div>
-          <h3 class="mt-4 text-sm text-gray-700">Kor Blockchain OG Badge</h3>
+          <h3 class="mt-4 text-sm text-gray-700">{{image.title}}</h3>
           <p class="mt-1 text-lg font-medium text-gray-900">#{{ image.id }}</p>
         </NuxtLink>
       </div>
